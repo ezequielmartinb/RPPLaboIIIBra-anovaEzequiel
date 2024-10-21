@@ -563,7 +563,58 @@ function OrdenarPorEdad()
     listaProfesionales.sort((a, b) => a.edad - b.edad);
     CargarDatosTabla();        
 }
-
+function OrdenarPorEquipo() 
+{
+    BorrarDatosTabla();
+    listaPersonas.sort(CompararPorEquipo);
+    listaFutbolistas.sort(CompararPorEquipo);
+    CargarDatosTabla();
+}
+function CompararPorEquipo(a, b) 
+{
+    const equipoA = (a.equipo === "N/A" || a.equipo === undefined) ? '' : a.equipo;
+    const equipoB = (b.equipo === "N/A" || b.equipo === undefined) ? '' : b.equipo;
+    return equipoA.localeCompare(equipoB);
+}
+function OrdenarPorPosicion() 
+{
+    BorrarDatosTabla();
+    listaPersonas.sort(CompararPorPosicion);
+    listaFutbolistas.sort(CompararPorPosicion);
+    CargarDatosTabla();
+}
+function CompararPorPosicion(a, b) 
+{
+    const posicionA = (a.posicion === "N/A" || a.posicion === undefined) ? '' : a.posicion;
+    const posicionB = (b.posicion === "N/A" || b.posicion === undefined) ? '' : b.posicion;
+    return posicionA.localeCompare(posicionB);
+}
+function OrdenarPorTitulo() 
+{
+    BorrarDatosTabla();
+    listaPersonas.sort(CompararPorTitulo);
+    listaFutbolistas.sort(CompararPorTitulo);
+    CargarDatosTabla();
+}
+function CompararPorTitulo(a, b) 
+{
+    const tituloA = (a.titulo === "N/A" || a.titulo === undefined) ? '' : a.titulo;
+    const tituloB = (b.titulo === "N/A" || b.titulo === undefined) ? '' : b.titulo;
+    return tituloA.localeCompare(tituloB);
+}
+function OrdenarPorFacultad() 
+{
+    BorrarDatosTabla();
+    listaPersonas.sort(CompararPorFacultad);
+    listaFutbolistas.sort(CompararPorFacultad);
+    CargarDatosTabla();
+}
+function CompararPorFacultad(a, b) 
+{
+    const facultadA = (a.facultad === "N/A" || a.facultad === undefined) ? '' : a.facultad;
+    const facultadB = (b.facultad === "N/A" || b.facultad === undefined) ? '' : b.facultad;
+    return facultadA.localeCompare(facultadB);
+}
 function OrdenarPorCantidadGoles()
 {
     BorrarDatosTabla();
@@ -598,10 +649,12 @@ let listaProfesionales = [];
 document.getElementById('agregar').addEventListener('click', function() 
 {
     document.getElementById('formularioABM').style.display = 'block';
+    document.getElementById('FormDatos').style.display = 'none';
 });
 document.getElementById('cancelar').addEventListener('click', function() 
 {
     document.getElementById('formularioABM').style.display = 'none';
+    document.getElementById('FormDatos').style.display = 'block';
 });
 listaPersonas.forEach(persona => 
 {
