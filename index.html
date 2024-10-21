@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperatorio Primer Parcial C2 2024 Laboratorio III</title>
+    <style>
+        table 
+        {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td 
+        {
+            border: 5px solid black;
+        }
+        th, td 
+        {
+            padding: 10px;
+            text-align: left;
+            background-color: aqua;
+        }
+        #formularioABM
+        {
+            display: none;
+        }
+        .extra-atributos
+        {
+            display: none;
+        }
+    </style> 
+</head>
+<body>
+    <div class="form-container">
+        <h2>Form Datos</h2>
+        <div class="form-group">
+            <label for="filter">Filtrar Por:</label>
+            <select id="filter" onchange="CargarDatosTabla()">
+                <option value="todos">Todos</option>
+                <option value="futbolista">Futbolistas</option>
+                <option value="profesional">Profesionales</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="promedio">Calcular Edad Promedio: </label>
+            <input type="text" id="promedio_edad" disabled>
+            <button id="calcular" onclick="CalcularPromedioEdad()">Calcular</button>
+        </div>
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="checkboxId" name="columns" value="id" checked onclick="MostrarColumna('btnID')"> ID
+                <input type="checkbox" id="checkboxNombre" name="columns" value="nombre" checked onclick="MostrarColumna('btnNombre')"> Nombre
+                <input type="checkbox" id="checkboxApellido" name="columns" value="apellido" checked onclick="MostrarColumna('btnApellido')"> Apellido
+                <input type="checkbox" id="checkboxEdad" name="columns" value="edad" checked onclick="MostrarColumna('btnEdad')"> Edad
+                <input type="checkbox" id="checkboxEquipo" name="columns" value="equipo" checked onclick="MostrarColumna('btnEquipo')"> Equipo
+                <input type="checkbox" id="checkboxPosicion" name="columns" value="posicion" checked onclick="MostrarColumna('btnPosicion')"> Posicion
+                <input type="checkbox" id="checkboxCantGoles" name="columns" value="cantGoles" checked onclick="MostrarColumna('btnCantGoles')"> Cantidad de Goles
+                <input type="checkbox" id="checkboxTitulo" name="columns" value="titulo" checked onclick="MostrarColumna('btnTitulo')"> Titulo     
+                <input type="checkbox" id="checkboxFacultad" name="columns" value="facultad" checked onclick="MostrarColumna('btnFacultad')"> Facultad     
+                <input type="checkbox" id="checkboxAnioGraduacion" name="columns" value="anioGraduacion" checked onclick="MostrarColumna('btnAnioGraduacion')"> Año de Graduacion     
+            </div>
+        </div>
+        <table id="vehiculo-table-body">
+            <thead>
+                <tr id=>
+                    <th id="btnID"><button type="button" onclick="OrdenarPorId()"> ID </button></th>
+                    <th id="btnNombre"><button type="button" onclick="OrdenarPorNombre()"> Nombre </button></th>
+                    <th id="btnApellido"><button type="button" onclick="OrdenarPorApellido()"> Apellido </button></th>
+                    <th id="btnEdad"><button type="button" onclick="OrdenarPorEdad()"> Edad </button></th>
+                    <th id="btnEquipo"><button type="button" onclick="OrdenarPorEquipo()"> Equipo </button></th>
+                    <th id="btnPosicion"><button type="button" onclick="OrdenarPorPosicion()"> Posicion </button></th>
+                    <th id="btnCantGoles"><button type="button" onclick="OrdenarPorCantidadGoles()"> Cantidad de Goles </button></th>
+                    <th id="btnTitulo"><button type="button" onclick="OrdenarPorTitulo()"> Titulo </button></th> 
+                    <th id="btnFacultad"><button type="button" onclick="OrdenarPorFacultad()"> Facultad </button></th> 
+                    <th id="btnAnioGraduacion"><button type="button" onclick="OrdenarPorAnioGraduacion()"> Año de Graduacion </button></th> 
+                </tr>
+            </thead>  
+            <tbody id="datosTabla">
+            </tbody>  
+        </table>
+        <button id="agregar">Agregar</button>
+    </div>
+    <div id="formularioABM">
+        <h2>Formulario ABM</h2>
+            <form>
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id" disabled><br><br>
+
+                <label id="labelAtributo1" for="atributo1">Atributo1:</label>
+                <input type="text" id="atributo1" name="atributo1"><br><br>
+
+                <label id="labelAtributo2" for="atributo2">Atributo2:</label>
+                <input type="text" id="atributo2" name="atributo2"><br><br>
+
+                <label for="tipo">Tipo:</label>
+                <select id="tipoPersona" name="tipo" onchange="CambiarAtributos()">
+                    <option value="futbolista">Futbolista</option>
+                    <option value="profesional">Profesional</option>
+                </select><br><br>
+
+                <label id="labelAtributo3" for="atributo3">Atributo3:</label>
+                <input type="number" id="atributo3" name="atributo3"><br><br>
+
+                <div id="extraAtributos" class="extra-atributos">
+                    <label id="labelAtributo4" for="atributo4">Atributo4:</label>
+                    <input type="text" id="atributo4" name="atributo4"><br><br>
+
+                    <label id="labelAtributo5" for="atributo5">Atributo5:</label>
+                    <input type="text" id="atributo5" name="atributo5"><br><br>
+                    <label id="labelAtributo6" for="atributo6">Atributo6:</label>
+                    <input type="number" id="atributo6" name="atributo6"><br><br>
+                </div>
+
+                <button type="button" id="agregarAbm" onclick="CrearPersona()">Agregar</button>
+                <button type="button" id="modificar" onclick="ModificarPersona()" disabled>Modificar</button>
+                <button type="button" id="eliminar" onclick="EliminarPersona()" disabled>Eliminar</button>
+                <button type="button" id="cancelar" onclick="ResetearAbm()">Cancelar</button>
+            </form>        
+    </div>
+    <script src="persona.js"></script>
+</body>
+</html>
